@@ -15,9 +15,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+            pm2 stop all
             cd ~/binance-dir/binance-bot/ # navigate into the folder
             git pull
             npm install # install dependencies 
-            pm2 stop all
-            pm2 start server.js # start as a background service.
-            pm2 start "node ace run:scheduler" --name adonis-scheduler
+            # pm2 start server.js # start as a background service.
+            # pm2 start "node ace run:scheduler" --name adonis-scheduler
+            pm2 start all --watch

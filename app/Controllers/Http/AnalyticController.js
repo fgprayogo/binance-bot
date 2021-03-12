@@ -10,6 +10,7 @@ const client = BinanceB({
 const moment = use('moment')
 const Order = use('App/Models/Order')
 const Database = use('Database')
+const Mail = use('Mail');
 
 class AnalyticController {
     async testConnection({ request, view, response, auth }) {
@@ -120,6 +121,11 @@ class AnalyticController {
                     status = 'OPEN'
                     var order = await Order.create({ symbol, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status })
 
+                    await Mail.send('email_buy_order_notification', { buy, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status }, (message) => {
+                        message.from('energen1995@gmail.com')
+                        message.to('energen1995@gmail.com')
+                        message.subject('Crypto Order Notification')
+                    })
                 } catch (error) {
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     console.log(error)
@@ -196,11 +202,13 @@ class AnalyticController {
                             })
                             console.log('SELL', sell)
                             console.log('Im called after sell')
+                            let stat = ''
                             // update status to close
                             if (limalima_avg >= ma_55_tp) {
                                 const order_close = await Order.find(order[i].id)
                                 order_close.status = 'CLOSE PROFIT'
                                 await order_close.save()
+                                stat = 'CLOSE PROFIT'
                                 console.log(order_close)
                                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                                 return response.json({ order_close })
@@ -208,10 +216,17 @@ class AnalyticController {
                                 const order_close = await Order.find(order[i].id)
                                 order_close.status = 'CLOSE LOSS'
                                 await order_close.save()
+                                stat = 'CLOSE LOSS'
                                 console.log(order_close)
                                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                                 return response.json({ order_close })
                             }
+
+                            await Mail.send('email_sell_order_notification', { sell, stat }, (message) => {
+                                message.from('energen1995@gmail.com')
+                                message.to('energen1995@gmail.com')
+                                message.subject('Crypto Order Notification')
+                            })
 
                         } catch (error) {
                             console.log(error)
@@ -231,6 +246,24 @@ class AnalyticController {
             console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
         }
         // END OF TRADING ALGO
+    }
+    async getDetailOrder({ request, view, response, auth }) {
+        const order = await client.getOrder({
+            symbol: 'BTCUSDT',
+            orderId: 5184851884,
+            recvWindow: 50000
+        })
+
+        console.log(order.cummulativeQuoteQty)
+        return response.json({ order })
+    }
+    async sendEmail({ request, view, response, auth }) {
+        const symbol = 'BUY'
+        await Mail.send('email_order_notification', { symbol }, (message) => {
+            message.from('energen1995@gmail.com')
+            message.to('energen1995@gmail.com')
+            message.subject('Crypto Order Notification')
+        })
     }
 
 
