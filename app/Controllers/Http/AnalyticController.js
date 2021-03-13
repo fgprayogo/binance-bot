@@ -121,11 +121,11 @@ class AnalyticController {
                     status = 'OPEN'
                     var order = await Order.create({ symbol, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status })
 
-                    await Mail.send('email_buy_order_notification', { buy, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status }, (message) => {
-                        message.from('energen1995@gmail.com')
-                        message.to('energen1995@gmail.com')
-                        message.subject('Crypto Order Notification')
-                    })
+                    // await Mail.send('email_buy_order_notification', { buy, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status }, (message) => {
+                    //     message.from('energen1995@gmail.com')
+                    //     message.to('energen1995@gmail.com')
+                    //     message.subject('Crypto Order Notification')
+                    // })
                 } catch (error) {
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     console.log(error)
@@ -222,11 +222,11 @@ class AnalyticController {
                                 return response.json({ order_close })
                             }
 
-                            await Mail.send('email_sell_order_notification', { sell, stat }, (message) => {
-                                message.from('energen1995@gmail.com')
-                                message.to('energen1995@gmail.com')
-                                message.subject('Crypto Order Notification')
-                            })
+                            // await Mail.send('email_sell_order_notification', { sell, stat }, (message) => {
+                            //     message.from('energen1995@gmail.com')
+                            //     message.to('energen1995@gmail.com')
+                            //     message.subject('Crypto Order Notification')
+                            // })
 
                         } catch (error) {
                             console.log(error)
