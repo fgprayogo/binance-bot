@@ -259,11 +259,12 @@ class AnalyticController {
     }
     async sendEmail({ request, view, response, auth }) {
         const symbol = 'BUY'
-        await Mail.send('email_order_notification', { symbol }, (message) => {
+        const email = await Mail.send('email_order_notification', { symbol }, (message) => {
             message.from('energen1995@gmail.com')
             message.to('energen1995@gmail.com')
             message.subject('Crypto Order Notification')
         })
+        console.log(email)
     }
 
 

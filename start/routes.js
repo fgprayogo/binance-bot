@@ -27,10 +27,6 @@ Route.get('/buy', 'AnalyticController.buy')
 Route.get('/sell', 'AnalyticController.sell')
 
 // GET DETAIL ORDER
-Route.get('/email', 'AnalyticController.sendEmail')
-
-
-// GET DETAIL ORDER
 Route.get('/detail-order', 'AnalyticController.getDetailOrder')
 
 // TESTING ONLY
@@ -38,4 +34,7 @@ Route.get('/read', 'AnalyticController.read')
 Route.get('/write', 'AnalyticController.write')
 Route.get('/buy-test', 'AnalyticController.buyTest')
 Route.get('/sell-test', 'AnalyticController.sellTest')
+
+// TEST SEND EMAIL
+Route.get('/email', 'AnalyticController.sendEmail')
 
