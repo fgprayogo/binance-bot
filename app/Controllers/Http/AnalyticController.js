@@ -78,7 +78,9 @@ class AnalyticController {
                         type: type
                     })
                     console.log("i called after buy")
-                    console.log('BUYY', buy)
+                    console.log('BUY', buy)
+                    console.log('BUY qty', buy.cummulativeQuoteQty)
+
                     status = 'OPEN'
                     var order = await Order.create({ symbol, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status })
 
@@ -117,7 +119,9 @@ class AnalyticController {
                         type: type
                     })
                     console.log("i called after buy")
-                    console.log('BUYY', buy)
+                    console.log('BUY', buy)
+                    console.log('BUY qty', buy.cummulativeQuoteQty)
+
                     status = 'OPEN'
                     var order = await Order.create({ symbol, ma_55, ma_55_tp, ma_55_sl, ma_55_down_half_percent, btc_amt, status })
 
@@ -201,6 +205,7 @@ class AnalyticController {
                                 type: type
                             })
                             console.log('SELL', sell)
+                            console.log('SELL qty', sell.cummulativeQuoteQty)
                             console.log('Im called after sell')
                             let stat = ''
                             // update status to close
