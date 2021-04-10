@@ -26,14 +26,36 @@ class AnalyticController {
         const symbol = await client.accountInfo()
         var data = []
         for (let i = 0; i < symbol.balances.length; i++) {
-            if(symbol.balances[i].free > 0){
+            if (symbol.balances[i].free > 0) {
                 data.push(symbol.balances[i])
             }
         }
         // console.log(symbol.balances.asset)
         console.log(data)
 
-        return response.json({ msg: msg, data:data })
+        return response.json({ msg: msg, data: data })
+    }
+    async accountInfo({ request, view, response, auth }) {
+        const msg = await client.ping()
+        console.log("msg", msg)
+        const symbol = await client.accountInfo()
+        var balance = []
+        for (let i = 0; i < symbol.balances.length; i++) {
+            if (symbol.balances[i].free > 0) {
+                balance.push(symbol.balances[i])
+            }
+        }
+        let bnb_obj = await SupertrendBnb.all()
+        let btc_obj = await SupertrendBtc.all()
+        // console.log(bnb_obj[0])
+        let bnb = bnb_obj.toJSON()
+        let btc = btc_obj.toJSON()
+        console.log(btc)
+
+        // const btc = btc_obj[0]
+
+        return view.render('account_info', { balance, btc, bnb })
+
     }
 
     // STRATEGY USING MA ONLY
