@@ -340,7 +340,7 @@ class AnalyticController {
                 && res_macd[0].histogram > 0) {
 
                 try {
-                    console.log("i'm called before buy")
+                    console.log("i'm called before buy BTC")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     const buy = await client.order({
                         symbol: symbol,
@@ -348,7 +348,7 @@ class AnalyticController {
                         quantity: String(btc_amt),
                         type: type
                     })
-                    console.log("i called after buy")
+                    console.log("i called after buy BTC")
                     console.log('BUY', buy)
                     console.log('BUY qty', buy.cummulativeQuoteQty)
                     const { orderId, cummulativeQuoteQty } = buy
@@ -364,11 +364,11 @@ class AnalyticController {
                 console.log("ok")
             } else {
                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-                console.log("Not match the buy conditions")
+                console.log("Not match the buy conditions BTC")
             }
         } else {
             console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-            console.log("There is open orders")
+            console.log("There is open orders BTC")
         }
     }
     async sellBTC({ request, view, response, auth }) {
@@ -413,7 +413,7 @@ class AnalyticController {
             if (res_supertrend[0].Supertrend.Direction == -1
                 && res_supertrend[1].Supertrend.Direction == 1) {
                 try {
-                    console.log("i'm called before SELL")
+                    console.log("i'm called before SELL BTC")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     const sell = await client.order({
                         symbol: symbol,
@@ -421,7 +421,7 @@ class AnalyticController {
                         quantity: String(btc_amt),
                         type: type
                     })
-                    console.log("i called after SELL")
+                    console.log("i called after SELL BTC")
                     console.log('SELL', sell)
                     console.log('SELL qty', sell.cummulativeQuoteQty)
                     const { orderId, cummulativeQuoteQty } = sell
@@ -451,11 +451,11 @@ class AnalyticController {
                 console.log("ok")
             } else {
                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-                console.log("Not match the sell conditions")
+                console.log("Not match the sell conditions BTC")
             }
         } else {
             console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-            console.log("There is no open orders")
+            console.log("There is no open orders BTC")
         }
     }
     async buyBNB({ request, view, response, auth }) {
@@ -514,7 +514,7 @@ class AnalyticController {
                 && res_macd[0].histogram > 0) {
 
                 try {
-                    console.log("i'm called before buy")
+                    console.log("i'm called before buy BNB")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     const buy = await client.order({
                         symbol: symbol,
@@ -522,7 +522,7 @@ class AnalyticController {
                         quantity: String(btc_amt),
                         type: type
                     })
-                    console.log("i called after buy")
+                    console.log("i called after buy BNB")
                     console.log('BUY', buy)
                     console.log('BUY qty', buy.cummulativeQuoteQty)
                     const { orderId, cummulativeQuoteQty } = buy
@@ -538,11 +538,11 @@ class AnalyticController {
                 console.log("ok")
             } else {
                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-                console.log("Not match the buy conditions")
+                console.log("Not match the buy conditions BNB")
             }
         } else {
             console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-            console.log("There is open orders")
+            console.log("There is open orders BNB")
         }
     }
     async sellBNB({ request, view, response, auth }) {
@@ -587,7 +587,7 @@ class AnalyticController {
             if (res_supertrend[0].Supertrend.Direction == -1
                 && res_supertrend[1].Supertrend.Direction == 1) {
                 try {
-                    console.log("i'm called before SELL")
+                    console.log("i'm called before SELL BNB")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
                     const sell = await client.order({
                         symbol: symbol,
@@ -595,7 +595,7 @@ class AnalyticController {
                         quantity: String(btc_amt),
                         type: type
                     })
-                    console.log("i called after SELL")
+                    console.log("i called after SELL BNB")
                     console.log('SELL', sell)
                     console.log('SELL qty', sell.cummulativeQuoteQty)
                     const { orderId, cummulativeQuoteQty } = sell
@@ -625,11 +625,11 @@ class AnalyticController {
                 console.log("ok")
             } else {
                 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-                console.log("Not match the sell conditions")
+                console.log("Not match the sell conditions BNB")
             }
         } else {
             console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
-            console.log("There is no open orders")
+            console.log("There is no open orders BNB")
         }
     }
 
