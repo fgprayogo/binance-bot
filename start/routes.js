@@ -38,3 +38,9 @@ Route.get('/sell-test', 'AnalyticController.sellTest')
 // TEST SEND EMAIL
 Route.get('/email', 'AnalyticController.sendEmail')
 
+// TEST SUPERTREND
+
+Route.get('/supertrend', 'AnalyticController.supertrend')
+Route.get('/macd', 'AnalyticController.macd')
+
+

@@ -30,7 +30,9 @@
     "axios": "^0.21.1",
     "binance-api-node": "^0.10.33",
     "moment": "^2.29.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "stock-technical-indicators": "^2.0.1",
+    "technicalindicators": "^3.1.0"
   },
   "devDependencies": {},
   "autoload": {

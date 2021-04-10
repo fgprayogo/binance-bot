@@ -9,8 +9,14 @@ const client = BinanceB({
 // var buy_order = []
 const moment = use('moment')
 const Order = use('App/Models/Order')
+const SupertrendBtc = use('App/Models/SupertrendBtc')
 const Database = use('Database')
 const Mail = use('Mail');
+const Stock = require("stock-technical-indicators")
+const Indicator = Stock.Indicator
+const { Supertrend } = require("stock-technical-indicators/study/Supertrend")
+
+var MACD = require('technicalindicators').MACD;
 
 class AnalyticController {
     async testConnection({ request, view, response, auth }) {
@@ -18,7 +24,9 @@ class AnalyticController {
         console.log("msg", msg)
         return response.json({ msg: msg })
     }
-    async buy({ request, view, response, auth }) {
+
+    // STRATEGY USING MA ONLY
+    async buyOld({ request, view, response, auth }) {
         //new algo
 
         //check data in database, if no data go to buy conditions
@@ -156,7 +164,7 @@ class AnalyticController {
         }
         //end of trading algo
     }
-    async sell({ request, view, response, auth }) {
+    async sellOld({ request, view, response, auth }) {
         // PARAMS FOR BINANCE SELL REQUEST
         var symbol = 'BTCUSDT'
         var side = 'SELL'
@@ -263,6 +271,7 @@ class AnalyticController {
         return response.json({ order })
     }
     async sendEmail({ request, view, response, auth }) {
+
         const symbol = 'BUY'
         const email = await Mail.send('email_test', { symbol }, (message) => {
             message.from('energen1995@gmail.com')
@@ -270,6 +279,180 @@ class AnalyticController {
             message.subject('Crypto Order Notification')
         })
         console.log(email)
+    }
+
+    // STRATEGY USING SUPERTREND AND MACD
+    async buy({ request, view, response, auth }) {
+        // const ob = await Database.table('supertrend_btcs').where('status', 'OPEN')
+        // return ob[0].status
+        // const order_id = 1
+        // const symbol = "BTCUSDT"
+        // const usd_buy_amt = 18
+        // const btc_amt = 0.00003
+        // const status = "OPEN"
+
+        // var supertrend_btc = await SupertrendBtc.create({order_id, symbol, usd_buy_amt, btc_amt, status })
+
+        // return supertrend_btc
+
+        const ob = await Database.table('supertrend_btcs').where('status', 'OPEN')
+
+        //sending params to binance server
+        var symbol = 'BTCUSDT'
+        var side = 'BUY'
+        var btc_amt = 0.0003
+        var type = 'MARKET'
+        //end of sending params to binance server
+
+        if (ob.length === 0) {
+            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '15m', limit: '50' })
+            price_history.reverse()
+            var status = 'IDLE'
+
+            var data_supertrend = []
+            var data_macd = []
+            for (let i = 1; i < 50; i++) {
+                data_macd.push(parseFloat(price_history[i].close))
+                data_supertrend.push([String(price_history[i].openTime), parseFloat(price_history[i].open), parseFloat(price_history[i].high), parseFloat(price_history[i].low), parseFloat(price_history[i].close), parseFloat(price_history[i].volume)])
+            }
+
+            // SUPERTREND CALCULATION
+            const newStudyATR = new Indicator(new Supertrend());
+            const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+
+            // MACD CALCULATION
+            var macdInput = {
+                values: data_macd,
+                fastPeriod: 12,
+                slowPeriod: 26,
+                signalPeriod: 9,
+                SimpleMAOscillator: false,
+                SimpleMASignal: false
+            }
+            const res_macd = await MACD.calculate(macdInput)
+            res_macd.reverse()
+
+            // BUY CONDITION
+            if (res_supertrend[0].Supertrend.Direction == 1
+                && res_supertrend[1].Supertrend.Direction == -1
+                && res_macd[0].histogram > 0) {
+
+                try {
+                    console.log("i'm called before buy")
+                    console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+                    const buy = await client.order({
+                        symbol: symbol,
+                        side: side,
+                        quantity: String(btc_amt),
+                        type: type
+                    })
+                    console.log("i called after buy")
+                    console.log('BUY', buy)
+                    console.log('BUY qty', buy.cummulativeQuoteQty)
+                    const { orderId, cummulativeQuoteQty } = buy
+                    const order_id = orderId
+                    const usd_buy_amt = cummulativeQuoteQty
+                    status = 'OPEN'
+                    var supertrend_btc = await SupertrendBtc.create({ order_id, symbol, usd_buy_amt, btc_amt, status })
+                    console.log(supertrend_btc)
+                } catch (error) {
+                    console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+                    console.log(error)
+                }
+                console.log("ok")
+            } else {
+                console.log("Not match the buy conditions")
+            }
+        } else {
+            console.log("There is open orders")
+        }
+    }
+
+    async sell({ request, view, response, auth }) {
+
+        const ob = await Database.table('supertrend_btcs').where('status', 'OPEN')
+
+        //sending params to binance server
+        var symbol = 'BTCUSDT'
+        var side = 'SELL'
+        var btc_amt = 0.0003
+        var type = 'MARKET'
+        //end of sending params to binance server
+
+        if (ob.length === 1) {
+            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '15m', limit: '50' })
+            price_history.reverse()
+
+            var data_supertrend = []
+            var data_macd = []
+            for (let i = 1; i < 50; i++) {
+                data_macd.push(parseFloat(price_history[i].close))
+                data_supertrend.push([String(price_history[i].openTime), parseFloat(price_history[i].open), parseFloat(price_history[i].high), parseFloat(price_history[i].low), parseFloat(price_history[i].close), parseFloat(price_history[i].volume)])
+            }
+
+            // SUPERTREND CALCULATION
+            const newStudyATR = new Indicator(new Supertrend());
+            const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+
+            // MACD CALCULATION
+            var macdInput = {
+                values: data_macd,
+                fastPeriod: 12,
+                slowPeriod: 26,
+                signalPeriod: 9,
+                SimpleMAOscillator: false,
+                SimpleMASignal: false
+            }
+            const res_macd = await MACD.calculate(macdInput)
+            res_macd.reverse()
+
+            // SELL CONDITION
+            if (res_supertrend[0].Supertrend.Direction == 1
+                && res_supertrend[1].Supertrend.Direction == -1
+                && res_macd[0].histogram > 0) {
+                try {
+                    console.log("i'm called before SELL")
+                    console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+                    const sell = await client.order({
+                        symbol: symbol,
+                        side: side,
+                        quantity: String(btc_amt),
+                        type: type
+                    })
+                    console.log("i called after SELL")
+                    console.log('SELL', sell)
+                    console.log('SELL qty', sell.cummulativeQuoteQty)
+                    const { orderId, cummulativeQuoteQty } = sell
+                    const order_id = orderId
+                    const usd_sell_amt = cummulativeQuoteQty
+
+                    const order = await Order.find(ob[0].id)
+                    order.usd_sell_amt = usd_sell_amt
+                    await order.save()
+
+                    if (order.usd_buy_amt < usd_sell_amt) {
+                        order.status = "CLOSE PROFIT"
+                        const gain = usd_sell_amt - order.usd_buy_amt
+                        order.gain = gain
+                        await order.save()
+                    } else if (order.usd_buy_amt > usd_sell_amt) {
+                        order.status = "CLOSE LOSS"
+                        const gain = usd_sell_amt - order.usd_buy_amt
+                        order.gain = gain
+                        await order.save()
+                    }
+                    console.log(order)
+                } catch (error) {
+                    console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+                    console.log(error)
+                }
+                console.log("ok")
+            } else {
+                console.log("Not match the buy conditions")
+            }
+        } else {
+            console.log("There is open orders")
+        }
     }
 
 
@@ -380,6 +563,55 @@ class AnalyticController {
                 type: 'MARKET'
             }),
         )
+    }
+    async supertrend({ request, view, response, auth }) {
+        // [
+        // '2018-09-05T00:00:00+0530', // Date In Iso Format
+        // 741.2, // Open
+        // 748.95,  // High
+        // 733.95, // Low
+        // 740.9, // Close
+        // 771705 // Volume
+        // ]
+
+        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
+        // price_history.reverse()
+
+        var data = []
+        for (let i = 1; i < 50; i++) {
+            data.push([String(price_history[i].openTime), parseFloat(price_history[i].open), parseFloat(price_history[i].high), parseFloat(price_history[i].low), parseFloat(price_history[i].close), parseFloat(price_history[i].volume)])
+        }
+
+
+        // return data
+        const newStudyATR = new Indicator(new Supertrend());
+        const hasil = await newStudyATR.calculate(data, { period: 7, multiplier: 2 })
+
+        // console.log(hasil)
+        for (let i = 1; i < hasil.length; i++) {
+            console.log(hasil[i][1], hasil[i].Supertrend)
+        }
+    }
+    async macd({ request, view, response, auth }) {
+
+        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
+        // price_history.reverse()1
+
+        var data = []
+        for (let i = 1; i < 50; i++) {
+            data.push(parseFloat(price_history[i].open))
+        }
+
+        var macdInput = {
+            values: data,
+            fastPeriod: 12,
+            slowPeriod: 26,
+            signalPeriod: 9,
+            SimpleMAOscillator: false,
+            SimpleMASignal: false
+        }
+
+        console.log(MACD.calculate(macdInput))
     }
 }
 
