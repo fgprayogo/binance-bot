@@ -308,7 +308,7 @@ class AnalyticController {
 
         if (ob.length === 0) {
             const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
-            price_history.reverse()
+            // price_history.reverse()
             var status = 'IDLE'
 
             var data_supertrend = []
@@ -321,6 +321,7 @@ class AnalyticController {
             // SUPERTREND CALCULATION
             const newStudyATR = new Indicator(new Supertrend());
             const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+            res_supertrend.reverse()
 
             // MACD CALCULATION
             var macdInput = {
@@ -384,7 +385,7 @@ class AnalyticController {
 
         if (ob.length === 1) {
             const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
-            price_history.reverse()
+            // price_history.reverse()
 
             var data_supertrend = []
             var data_macd = []
@@ -396,6 +397,7 @@ class AnalyticController {
             // SUPERTREND CALCULATION
             const newStudyATR = new Indicator(new Supertrend());
             const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+            res_supertrend.reverse()
 
             // MACD CALCULATION
             var macdInput = {
@@ -482,7 +484,7 @@ class AnalyticController {
 
         if (ob.length === 0) {
             const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
-            price_history.reverse()
+            // price_history.reverse()
             var status = 'IDLE'
 
             var data_supertrend = []
@@ -495,6 +497,7 @@ class AnalyticController {
             // SUPERTREND CALCULATION
             const newStudyATR = new Indicator(new Supertrend());
             const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+            res_supertrend.reverse()
 
             // MACD CALCULATION
             var macdInput = {
@@ -558,7 +561,7 @@ class AnalyticController {
 
         if (ob.length === 1) {
             const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
-            price_history.reverse()
+            // price_history.reverse()
 
             var data_supertrend = []
             var data_macd = []
@@ -570,6 +573,7 @@ class AnalyticController {
             // SUPERTREND CALCULATION
             const newStudyATR = new Indicator(new Supertrend());
             const res_supertrend = await newStudyATR.calculate(data_supertrend, { period: 7, multiplier: 2 })
+            res_supertrend.reverse()
 
             // MACD CALCULATION
             var macdInput = {
@@ -752,7 +756,7 @@ class AnalyticController {
         // 771705 // Volume
         // ]
 
-        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
+        const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
         // price_history.reverse()
 
         var data = []
@@ -772,7 +776,7 @@ class AnalyticController {
     }
     async macd({ request, view, response, auth }) {
 
-        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
+        const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
         // price_history.reverse()1
 
         var data = []
