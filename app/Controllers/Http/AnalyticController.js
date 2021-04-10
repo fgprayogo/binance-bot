@@ -428,7 +428,7 @@ class AnalyticController {
                     const order_id = orderId
                     const usd_sell_amt = cummulativeQuoteQty
 
-                    const order = await Order.find(ob[0].id)
+                    const order = await SupertrendBtc.find(ob[0].id)
                     order.usd_sell_amt = usd_sell_amt
                     await order.save()
 
@@ -602,7 +602,7 @@ class AnalyticController {
                     const order_id = orderId
                     const usd_sell_amt = cummulativeQuoteQty
 
-                    const order = await Order.find(ob[0].id)
+                    const order = await SupertrendBnb.find(ob[0].id)
                     order.usd_sell_amt = usd_sell_amt
                     await order.save()
 
