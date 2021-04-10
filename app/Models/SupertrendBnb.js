@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class SupertrendBnb extends Model {
+    static get table () {
+        return 'supertrend_bnbs'
+      }
 }
 
 module.exports = SupertrendBnb

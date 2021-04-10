@@ -23,8 +23,10 @@ const Route = use('Route')
 Route.get('/', 'AnalyticController.testConnection')
 
 // REAL TRADING
-Route.get('/buy', 'AnalyticController.buy')
-Route.get('/sell', 'AnalyticController.sell')
+Route.get('/buyBTC', 'AnalyticController.buyBTC')
+Route.get('/sellBTC', 'AnalyticController.sellBTC')
+Route.get('/buyBNB', 'AnalyticController.buyBNB')
+Route.get('/sellBNB', 'AnalyticController.sellBNB')
 
 // GET DETAIL ORDER
 Route.get('/detail-order', 'AnalyticController.getDetailOrder')
