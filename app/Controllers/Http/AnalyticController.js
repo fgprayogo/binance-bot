@@ -23,8 +23,17 @@ class AnalyticController {
     async testConnection({ request, view, response, auth }) {
         const msg = await client.ping()
         console.log("msg", msg)
-        console.log(await client.futuresAccountBalance());
-        return response.json({ msg: msg })
+        const symbol = await client.accountInfo()
+        var data = []
+        for (let i = 0; i < symbol.balances.length; i++) {
+            if(symbol.balances[i].free > 0){
+                data.push(symbol.balances[i])
+            }
+        }
+        // console.log(symbol.balances.asset)
+        console.log(data)
+
+        return response.json({ msg: msg, data:data })
     }
 
     // STRATEGY USING MA ONLY
@@ -756,7 +765,7 @@ class AnalyticController {
         // 771705 // Volume
         // ]
 
-        const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
+        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
         // price_history.reverse()
 
         var data = []
@@ -768,6 +777,7 @@ class AnalyticController {
         // return data
         const newStudyATR = new Indicator(new Supertrend());
         const hasil = await newStudyATR.calculate(data, { period: 7, multiplier: 2 })
+        hasil.reverse()
 
         // console.log(hasil)
         for (let i = 1; i < hasil.length; i++) {
