@@ -338,7 +338,7 @@ class AnalyticController {
         //end of sending params to binance server
 
         if (ob.length === 0) {
-            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
+            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '15m', limit: '50' })
             // price_history.reverse()
             var status = 'IDLE'
 
@@ -415,7 +415,7 @@ class AnalyticController {
         //end of sending params to binance server
 
         if (ob.length === 1) {
-            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
+            const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '15m', limit: '50' })
             // price_history.reverse()
 
             var data_supertrend = []
@@ -514,7 +514,7 @@ class AnalyticController {
         //end of sending params to binance server
 
         if (ob.length === 0) {
-            const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
+            const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
             // price_history.reverse()
             var status = 'IDLE'
 
@@ -591,7 +591,7 @@ class AnalyticController {
         //end of sending params to binance server
 
         if (ob.length === 1) {
-            const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
+            const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
             // price_history.reverse()
 
             var data_supertrend = []
