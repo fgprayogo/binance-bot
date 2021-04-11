@@ -21,23 +21,30 @@ var MACD = require('technicalindicators').MACD;
 
 class AnalyticController {
     async testConnection({ request, view, response, auth }) {
-        const msg = await client.ping()
-        console.log("msg", msg)
-        const symbol = await client.accountInfo()
-        var data = []
-        for (let i = 0; i < symbol.balances.length; i++) {
-            if (symbol.balances[i].free > 0) {
-                data.push(symbol.balances[i])
-            }
-        }
-        // console.log(symbol.balances.asset)
-        console.log(data)
+        // const msg = await client.ping()
+        // console.log("msg", msg)
+        // const symbol = await client.accountInfo()
+        // var data = []
+        // for (let i = 0; i < symbol.balances.length; i++) {
+        //     if (symbol.balances[i].free > 0) {
+        //         data.push(symbol.balances[i])
+        //     }
+        // }
+        // // console.log(symbol.balances.asset)
+        // console.log(data)
 
-        return response.json({ msg: msg, data: data })
+        // return response.json({ msg: msg})
+
+        const gain_btc = await Database.from('supertrend_btcs').sum('gain as gain')
+        const gain_bnb = await Database.from('supertrend_bnbs').sum('gain as gain')
+        const data2 = JSON.stringify(data)
+        console.log(data[0].gain)
+
+
     }
     async accountInfo({ request, view, response, auth }) {
-        const msg = await client.ping()
-        console.log("msg", msg)
+        // const msg = await client.ping()
+        // console.log("msg", msg)
         const symbol = await client.accountInfo()
         var balance = []
         for (let i = 0; i < symbol.balances.length; i++) {
@@ -50,11 +57,16 @@ class AnalyticController {
         // console.log(bnb_obj[0])
         let bnb = bnb_obj.toJSON()
         let btc = btc_obj.toJSON()
-        console.log(btc)
+        // console.log(btc)
 
         // const btc = btc_obj[0]
 
-        return view.render('account_info', { balance, btc, bnb })
+        const gain_btc = await Database.from('supertrend_btcs').sum('gain as gain')
+        const gain_bnb = await Database.from('supertrend_bnbs').sum('gain as gain')
+
+        const total_gain = gain_btc[0].gain + gain_bnb[0].gain
+
+        return view.render('account_info', { balance, btc, bnb, total_gain })
 
     }
 

@@ -21,6 +21,7 @@ const Route = use('Route')
 
 // TEST CONNECTION
 Route.get('/', 'AnalyticController.accountInfo')
+Route.get('/test', 'AnalyticController.testConnection')
 
 // REAL TRADING
 Route.get('/buyBTC', 'AnalyticController.buyBTC')
