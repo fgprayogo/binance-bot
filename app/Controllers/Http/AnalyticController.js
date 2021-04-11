@@ -333,7 +333,7 @@ class AnalyticController {
         //sending params to binance server
         var symbol = 'BTCUSDT'
         var side = 'BUY'
-        var btc_amt = 0.0003
+        var btc_amt = 0.0008
         var type = 'MARKET'
         //end of sending params to binance server
 
@@ -410,7 +410,7 @@ class AnalyticController {
         //sending params to binance server
         var symbol = 'BTCUSDT'
         var side = 'SELL'
-        var btc_amt = 0.0003
+        var btc_amt = 0.0008
         var type = 'MARKET'
         //end of sending params to binance server
 
@@ -509,7 +509,7 @@ class AnalyticController {
         //sending params to binance server
         var symbol = 'BNBUSDT'
         var side = 'BUY'
-        var btc_amt = 0.03
+        var btc_amt = 0.1
         var type = 'MARKET'
         //end of sending params to binance server
 
@@ -586,7 +586,7 @@ class AnalyticController {
         //sending params to binance server
         var symbol = 'BNBUSDT'
         var side = 'SELL'
-        var btc_amt = 0.03
+        var btc_amt = 0.1
         var type = 'MARKET'
         //end of sending params to binance server
 
