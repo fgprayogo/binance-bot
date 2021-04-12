@@ -69,8 +69,8 @@ class AnalyticController {
         const stake_galih = 59.1
         const stake_hansu = 67.2
         const persentase_gain = (total_gain / stake) * 100
-        const gain_galih = ((stake_galih / stake) * 100) * total_gain
-        const gain_hansu = ((stake_hansu / stake) * 100) * total_gain
+        const gain_galih = (stake_galih / stake) * total_gain
+        const gain_hansu = (stake_hansu / stake) * total_gain
 
         return view.render('account_info', { balance, btc, bnb, stake, total_gain, stake_galih, stake_hansu, persentase_gain, gain_galih, gain_hansu })
 
