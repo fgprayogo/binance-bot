@@ -103,7 +103,10 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Pair</th>
+                  <th scope="col">BTC Amt</th>
+                  <th scope="col">Buy Time</th>
                   <th scope="col">Buy Amt</th>
+                  <th scope="col">Buy Time</th>
                   <th scope="col">Sell Amt</th>
                   <th scope="col">Gain</th>
                   <th scope="col">Status</th>
@@ -114,7 +117,10 @@
                 <tr>
                   <th scope="row">{{$loop.index+1}}</th>
                   <td class="col-md-3">{{item.symbol}} </td>
+                  <td class="col-md-3">0.1</td>
+                  <td class="col-md-3">{{item.created_at}} </td>
                   <td class="col-md-3">${{item.usd_buy_amt}}</td>
+                  <td class="col-md-3">{{item.updated_at}} </td>
                   <td class="col-md-3">${{item.usd_sell_amt}}</td>
                   <td class="col-md-3">${{item.gain}}</td>
                   <td class="col-md-3">{{item.status}}</td>
@@ -134,7 +140,10 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Pair</th>
+                  <th scope="col">BTC Amt</th>
+                  <th scope="col">Buy Time</th>
                   <th scope="col">Buy Amt</th>
+                  <th scope="col">Buy Time</th>
                   <th scope="col">Sell Amt</th>
                   <th scope="col">Gain</th>
                   <th scope="col">Status</th>
@@ -145,7 +154,10 @@
                 <tr>
                   <th scope="row">{{$loop.index+1}}</th>
                   <td class="col-md-3">{{item.symbol}} </td>
+                  <td class="col-md-3">0.0008</td>
+                  <td class="col-md-3">{{item.created_at}} </td>
                   <td class="col-md-3">${{item.usd_buy_amt}}</td>
+                  <td class="col-md-3">{{item.updated_at}} </td>
                   <td class="col-md-3">${{item.usd_sell_amt}}</td>
                   <td class="col-md-3">${{item.gain}}</td>
                   <td class="col-md-3">{{item.status}}</td>
