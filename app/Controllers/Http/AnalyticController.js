@@ -64,13 +64,13 @@ class AnalyticController {
         const gain_btc = await Database.from('supertrend_btcs').sum('gain as gain')
         const gain_bnb = await Database.from('supertrend_bnbs').sum('gain as gain')
 
-        const total_gain = gain_btc[0].gain + gain_bnb[0].gain
+        const total_gain = (gain_btc[0].gain + gain_bnb[0].gain).toFixed(2)
         const stake = 126.3
         const stake_galih = 59.1
         const stake_hansu = 67.2
-        const persentase_gain = (total_gain / stake) * 100
-        const gain_galih = (stake_galih / stake) * total_gain
-        const gain_hansu = (stake_hansu / stake) * total_gain
+        const persentase_gain = ((total_gain / stake) * 100).toFixed(2)
+        const gain_galih = ((stake_galih / stake) * total_gain).toFixed(2)
+        const gain_hansu = ((stake_hansu / stake) * total_gain).toFixed(2)
 
         return view.render('account_info', { balance, btc, bnb, stake, total_gain, stake_galih, stake_hansu, persentase_gain, gain_galih, gain_hansu })
 
@@ -639,7 +639,7 @@ class AnalyticController {
             // SELL CONDITION
             if (res_supertrend[1].Supertrend.Direction == -1
                 && res_supertrend[2].Supertrend.Direction == 1
-                ) {
+            ) {
                 try {
                     console.log("i'm called before SELL BNB")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
