@@ -119,10 +119,10 @@
                   <td class="col-md-3">{{item.symbol}} </td>
                   <td class="col-md-3">0.1</td>
                   <td class="col-md-3">{{item.created_at}} </td>
-                  <td class="col-md-3">${{item.usd_buy_amt}}</td>
+                  <td class="col-md-3">${{(item.usd_buy_amt).toFixed(2)}}</td>
                   <td class="col-md-3">{{item.updated_at}} </td>
-                  <td class="col-md-3">${{item.usd_sell_amt}}</td>
-                  <td class="col-md-3">${{item.gain}}</td>
+                  <td class="col-md-3">${{(item.usd_sell_amt).toFixed(2)}}</td>
+                  <td class="col-md-3">${{(item.gain).toFixed(2)}}</td>
                   <td class="col-md-3">{{item.status}}</td>
                 </tr>
                 @endeach
@@ -156,10 +156,10 @@
                   <td class="col-md-3">{{item.symbol}} </td>
                   <td class="col-md-3">0.0008</td>
                   <td class="col-md-3">{{item.created_at}} </td>
-                  <td class="col-md-3">${{item.usd_buy_amt}}</td>
+                  <td class="col-md-3">${{(item.usd_buy_amt).toFixed(2)}}</td>
                   <td class="col-md-3">{{item.updated_at}} </td>
-                  <td class="col-md-3">${{item.usd_sell_amt}}</td>
-                  <td class="col-md-3">${{item.gain}}</td>
+                  <td class="col-md-3">${{(item.usd_sell_amt).toFixed(2)}}</td>
+                  <td class="col-md-3">${{(item.gain).toFixed(2)}}</td>
                   <td class="col-md-3">{{item.status}}</td>
                 </tr>
                 @endeach
