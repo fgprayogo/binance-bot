@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{--  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -160,6 +160,182 @@
                   <td class="col">{{item.updated_at}} </td>
                   <td class="col">${{(item.usd_sell_amt).toFixed(2)}}</td>
                   <td class="col">${{(item.gain).toFixed(2)}}</td>
+                  <td class="col">{{item.status}}</td>
+                </tr>
+                @endeach
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+</body>
+</html>  --}}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Crypto Bot Summary </title>
+</head>
+<body>
+    <br>
+    <div class="container" style="text-align:center">
+      <h1> Crypto Bot Summary </h1>
+
+    </div>
+    <div class="container" >
+      <button class="btn btn-secondary" onclick="location.href='/'" style="background-color:transparent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+      </button>
+    </div>
+    <br>
+    <div class="container">
+        <div class="table-responsive-xl">
+            <h2>Account Balances</h2>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Symbol</th>
+                  <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(item in balance)
+                <tr>
+                  <th scope="col">{{$loop.index+1}}</th>
+                  <td class="col">{{item.asset}} </td>
+                  <td class="col">{{item.free}}</td>
+                </tr>
+                @endeach
+              </tbody>
+            </table>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td class="col-md-5">Total Stake</td>
+                  <td class="col-md-5">${{stake}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td class="col-md-5">Stake Galih</td>
+                  <td class="col-md-5">${{stake_galih}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td class="col-md-5">Stake Hansu</td>
+                  <td class="col-md-5">${{stake_hansu}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td class="col-md-5">Total Gain</td>
+                  <td class="col-md-5">${{total_gain}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td class="col-md-5">% Gain</td>
+                  <td class="col-md-5">{{persentase_gain}}%</td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td class="col-md-5">Gain Galih</td>
+                  <td class="col-md-5">${{gain_galih}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td class="col-md-5">Gain Hansu</td>
+                  <td class="col-md-5">${{gain_hansu}}</td>
+                </tr>
+               
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="table-responsive-xl">
+            <h2>History BNB</h2>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Pair</th>
+                  <th scope="col">BNB Amt</th>
+                  <th scope="col">Buy Time</th>
+                  <th scope="col">Buy Amt</th>
+                  <th scope="col">Sell Time</th>
+                  <th scope="col">Sell Amt</th>
+                  <th scope="col">Gain</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(item in bnb)
+                <tr>
+                  <th scope="row">{{$loop.index+1}}</th>
+                  <td class="col">{{item.symbol}} </td>
+                  <td class="col">0.1</td>
+                  <td class="col">{{item.created_at}} </td>
+                  <td class="col">${{(item.usd_buy_amt)}}</td>
+                  <td class="col">{{item.updated_at}} </td>
+                  <td class="col">${{(item.usd_sell_amt)}}</td>
+                  <td class="col">${{(item.gain)}}</td>
+                  <td class="col">{{item.status}}</td>
+                </tr>
+                @endeach
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="table-responsive-xl">
+            <h2>History BTC</h2>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Pair</th>
+                  <th scope="col">BTC Amt</th>
+                  <th scope="col">Buy Time</th>
+                  <th scope="col">Buy Amt</th>
+                  <th scope="col">Sell Time</th>
+                  <th scope="col">Sell Amt</th>
+                  <th scope="col">Gain</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(item in btc)
+                <tr>
+                  <th scope="row">{{$loop.index+1}}</th>
+                  <td class="col">{{item.symbol}} </td>
+                  <td class="col">0.0008</td>
+                  <td class="col">{{item.created_at}} </td>
+                  <td class="col">${{(item.usd_buy_amt)}}</td>
+                  <td class="col">{{item.updated_at}} </td>
+                  <td class="col">${{(item.usd_sell_amt)}}</td>
+                  <td class="col">${{(item.gain)}}</td>
                   <td class="col">{{item.status}}</td>
                 </tr>
                 @endeach
