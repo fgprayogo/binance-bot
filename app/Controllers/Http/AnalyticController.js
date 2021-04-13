@@ -64,14 +64,11 @@ class AnalyticController {
         const gain_btc = await Database.from('supertrend_btcs').sum('gain as gain')
         const gain_bnb = await Database.from('supertrend_bnbs').sum('gain as gain')
 
-        // const total_gain = (gain_btc[0].gain + gain_bnb[0].gain).toFixed(2)
         const total_gain = (gain_btc[0].gain + gain_bnb[0].gain)
         const stake = 126.3
         const stake_galih = 59.1
         const stake_hansu = 67.2
-        // const persentase_gain = ((total_gain / stake) * 100).toFixed(2)
-        // const gain_galih = ((stake_galih / stake) * total_gain).toFixed(2)
-        // const gain_hansu = ((stake_hansu / stake) * total_gain).toFixed(2)
+        
         const persentase_gain = ((total_gain / stake) * 100)
         const gain_galih = ((stake_galih / stake) * total_gain)
         const gain_hansu = ((stake_hansu / stake) * total_gain)
