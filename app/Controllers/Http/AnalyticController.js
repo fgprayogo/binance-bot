@@ -638,7 +638,7 @@ class AnalyticController {
 
             // SELL CONDITION
             if (res_supertrend[0].Supertrend.Direction == -1
-                && res_supertrend[1].Supertrend.Direction == 1) {
+                ) {
                 try {
                     console.log("i'm called before SELL BNB")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
@@ -805,7 +805,7 @@ class AnalyticController {
         // 771705 // Volume
         // ]
 
-        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '5m', limit: '50' })
+        const price_history = await client.candles({ symbol: 'BNBUSDT', interval: '15m', limit: '50' })
         // price_history.reverse()
 
         var data = []
@@ -818,11 +818,12 @@ class AnalyticController {
         const newStudyATR = new Indicator(new Supertrend());
         const hasil = await newStudyATR.calculate(data, { period: 7, multiplier: 2 })
         hasil.reverse()
+        console.log(hasil)
 
         // console.log(hasil)
-        for (let i = 1; i < hasil.length; i++) {
-            console.log(hasil[i][1], hasil[i].Supertrend)
-        }
+        // for (let i = 1; i < hasil.length; i++) {
+        //     console.log(hasil[i][1], hasil[i].Supertrend)
+        // }
     }
     async macd({ request, view, response, auth }) {
 
