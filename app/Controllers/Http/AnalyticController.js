@@ -385,8 +385,8 @@ class AnalyticController {
             res_macd.reverse()
 
             // BUY CONDITION
-            if (res_supertrend[0].Supertrend.Direction == 1
-                && res_supertrend[1].Supertrend.Direction == -1
+            if (res_supertrend[1].Supertrend.Direction == 1
+                && res_supertrend[2].Supertrend.Direction == -1
                 && res_macd[0].histogram > 0) {
 
                 try {
@@ -461,8 +461,8 @@ class AnalyticController {
             res_macd.reverse()
 
             // SELL CONDITION
-            if (res_supertrend[0].Supertrend.Direction == -1
-                && res_supertrend[1].Supertrend.Direction == 1) {
+            if (res_supertrend[1].Supertrend.Direction == -1
+                && res_supertrend[2].Supertrend.Direction == 1) {
                 try {
                     console.log("i'm called before SELL BTC")
                     console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
@@ -561,8 +561,8 @@ class AnalyticController {
             res_macd.reverse()
 
             // BUY CONDITION
-            if (res_supertrend[0].Supertrend.Direction == 1
-                && res_supertrend[1].Supertrend.Direction == -1
+            if (res_supertrend[1].Supertrend.Direction == 1
+                && res_supertrend[2].Supertrend.Direction == -1
                 && res_macd[0].histogram > 0) {
 
                 try {
@@ -637,7 +637,8 @@ class AnalyticController {
             res_macd.reverse()
 
             // SELL CONDITION
-            if (res_supertrend[0].Supertrend.Direction == -1
+            if (res_supertrend[1].Supertrend.Direction == -1
+                && res_supertrend[2].Supertrend.Direction == 1
                 ) {
                 try {
                     console.log("i'm called before SELL BNB")
