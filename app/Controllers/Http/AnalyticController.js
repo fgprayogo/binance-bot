@@ -819,8 +819,9 @@ class AnalyticController {
         // return data
         const newStudyATR = new Indicator(new Supertrend());
         const hasil = await newStudyATR.calculate(data, { period: 7, multiplier: 2 })
-        hasil.reverse()
+        // hasil.reverse()
         console.log(hasil)
+        return hasil
 
         // console.log(hasil)
         // for (let i = 1; i < hasil.length; i++) {
@@ -828,25 +829,31 @@ class AnalyticController {
         // }
     }
     async macd({ request, view, response, auth }) {
+        console.log(await client.dailyStats({ symbol: 'DOGEUSDT' }))
 
-        const price_history = await client.candles({ symbol: 'BTCUSDT', interval: '5m', limit: '50' })
-        // price_history.reverse()1
+        // const price_history = await client.candles({ symbol: 'DOGEUSDT', interval: '1h', limit: '50' })
+        // price_history.reverse()
+        // console.log(price_history)
 
-        var data = []
-        for (let i = 1; i < 50; i++) {
-            data.push(parseFloat(price_history[i].open))
-        }
+        // var data = []
+        // for (let i = 1; i < 50; i++) {
+        //     data.push(parseFloat(price_history[i].open))
+        // }
 
-        var macdInput = {
-            values: data,
-            fastPeriod: 12,
-            slowPeriod: 26,
-            signalPeriod: 9,
-            SimpleMAOscillator: false,
-            SimpleMASignal: false
-        }
+        // var macdInput = {
+        //     values: data,
+        //     fastPeriod: 12,
+        //     slowPeriod: 26,
+        //     signalPeriod: 9,
+        //     SimpleMAOscillator: false,
+        //     SimpleMASignal: false
+        // }
 
-        console.log(MACD.calculate(macdInput))
+        // console.log(MACD.calculate(macdInput))
+    }
+    async vol({ request, view, response, auth }){
+        const price_history = await client.candles({ symbol: 'DOGEUSDT', interval: '5m', limit: '50' })
+
     }
 }
 
