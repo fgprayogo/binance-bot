@@ -29,8 +29,8 @@ module.exports = {
     host: 'smtp.gmail.com',
     secure: true,
     auth: {
-      user: 'energen1995@gmail.com',
-      pass: '1995energen'
+      user: 'email',
+      pass: 'password'
     },
     maxConnections: 5,
     maxMessages: 100,
