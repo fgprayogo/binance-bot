@@ -2,8 +2,8 @@
 
 const BinanceB = require('binance-api-node').default
 const client = BinanceB({
-    apiKey: 'oGsNh0qQriS2co5nIeOY2Tt1ecTAJWPQpa6VfHHvyab4ZrMzRIRIBXpdjkACs3cG',
-    apiSecret: '3icT1xvrJW32kSLCbmhARIfOADdYVnP9ONQm8TYMY6zu2fXJRoZMQLXmFrNSUXCV',
+    apiKey: 'key',
+    apiSecret: 'secret',
     getTime: () => Date.now(),
 })
 // var buy_order = []
